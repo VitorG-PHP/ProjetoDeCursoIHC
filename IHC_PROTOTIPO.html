@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logística Bateria Desgovernada</title>
+    <style>
+        :root {
+            --bg-color: #f4f6f9;
+            --text-color: #333;
+            --primary: #2c3e50;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --border: #dcdde1;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 600px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .nav-header {
+            display: flex;
+            background-color: var(--primary);
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            color: #bdc3c7;
+            padding: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .nav-btn.active {
+            color: #fff;
+            background-color: rgba(255,255,255,0.1);
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .view-section {
+            display: none;
+            padding: 20px;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        /* Tela Inicial e Formulário de Notificação */
+        .alert-box {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+
+        .alert-title {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            color: #856404;
+        }
+
+        .alert-detail {
+            margin: 0 0 15px 0;
+            font-size: 14px;
+            color: #533f03;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #533f03;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ffeeba;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+            font-family: inherit;
+            background-color: #fff;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #ffc107;
+        }
+
+        .btn-confirm {
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: opacity 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-confirm:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-confirm:disabled {
+            cursor: not-allowed;
+            opacity: 1;
+        }
+
+        /* Cronograma de Ensaios */
+        .schedule-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid var(--border);
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .schedule-date {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .schedule-info {
+            font-size: 14px;
+            color: #666;
+            text-align: right;
+        }
+
+        /* Alocação de Instrumentos */
+        .instrument-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .instrument-card {
+            border: 2px solid var(--border);
+            padding: 20px 10px;
+            text-align: center;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .instrument-card.selected {
+            border-color: var(--primary);
+            background-color: #f0f4f8;
+            font-weight: bold;
+        }
+
+        .section-title {
+            margin-top: 0;
+            font-size: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <nav class="nav-header">
+            <button class="nav-btn active" onclick="switchView('home', this)">Início</button>
+            <button class="nav-btn" onclick="switchView('schedule', this)">Cronograma</button>
+            <button class="nav-btn" onclick="switchView('instruments', this)">Instrumentos</button>
+        </nav>
+
+        <div id="home" class="view-section active">
+            <h2 class="section-title">Próximo Evento</h2>
+            <div class="alert-box">
+                <h3 class="alert-title">⚠️ Ensaio Geral - Loucomotiva</h3>
+                <p class="alert-detail">Data: Sexta-feira, 20h00<br>Local: Sede principal</p>
+                
+                <div class="form-group">
+                    <label class="form-label" for="ritmista-nome">Nome do Ritmista:</label>
+                    <input type="text" id="ritmista-nome" class="form-control" placeholder="Digite seu nome completo">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="ritmista-instrumento">Instrumento a ser utilizado:</label>
+                    <select id="ritmista-instrumento" class="form-control">
+                        <option value="">Selecione uma opção...</option>
+                        <option value="Surdo de Primeira">Surdo de Primeira</option>
+                        <option value="Surdo de Segunda">Surdo de Segunda</option>
+                        <option value="Surdo de Terceira">Surdo de Terceira</option>
+                        <option value="Caixa">Caixa</option>
+                        <option value="Repique">Repique</option>
+                        <option value="Tamborim">Tamborim</option>
+                        <option value="Chocalho">Chocalho</option>
+                        <option value="Agogô">Agogô</option>
+                    </select>
+                </div>
+
+                <button id="btn-presence" class="btn-confirm" onclick="confirmPresence()">Confirmar Comparecimento</button>
+            </div>
+            <p style="font-size: 14px; color: #666;">Utilize as abas superiores para verificar o cronograma completo e solicitar a alocação do seu patrimônio.</p>
+        </div>
+
+        <div id="schedule" class="view-section">
+            <h2 class="section-title">Painel de Ensaios</h2>
+            <div class="schedule-row">
+                <div class="schedule-date">Sexta, 15/11 - 20h</div>
+                <div class="schedule-info">Ensaio Geral<br>Sede</div>
+            </div>
+            <div class="schedule-row">
+                <div class="schedule-date">Sábado, 16/11 - 14h</div>
+                <div class="schedule-info">Naipe de Caixas<br>Anexo</div>
+            </div>
+            <div class="schedule-row">
+                <div class="schedule-date">Quarta, 20/11 - 19h</div>
+                <div class="schedule-info">Ensaio de Marcação<br>Sede</div>
+            </div>
+        </div>
+
+        <div id="instruments" class="view-section">
+            <h2 class="section-title">Módulo de Patrimônio</h2>
+            <p style="font-size: 14px; margin-bottom: 20px;">Selecione o instrumento necessário para a próxima atividade logística:</p>
+            
+            <div class="instrument-grid">
+                <div class="instrument-card" onclick="selectInstrument(this)">Surdo de Primeira</div>
+                <div class="instrument-card" onclick="selectInstrument(this)">Surdo de Segunda</div>
+                <div class="instrument-card" onclick="selectInstrument(this)">Surdo de Terceira</div>
+                <div class="instrument-card" onclick="selectInstrument(this)">Caixa</div>
+                <div class="instrument-card" onclick="selectInstrument(this)">Repique</div>
+                <div class="instrument-card" onclick="selectInstrument(this)">Tamborim</div>
+                <div class="instrument-card" onclick="selectInstrument(this)">Chocalho</div>
+                <div class="instrument-card" onclick="selectInstrument(this)">Agogô</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchView(viewId, btnElement) {
+            const views = document.querySelectorAll('.view-section');
+            views.forEach(view => {
+                view.classList.remove('active');
+            });
+
+            const btns = document.querySelectorAll('.nav-btn');
+            btns.forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById(viewId).classList.add('active');
+            btnElement.classList.add('active');
+        }
+
+        function confirmPresence() {
+            const nomeInput = document.getElementById('ritmista-nome');
+            const instrumentoSelect = document.getElementById('ritmista-instrumento');
+            
+            const nome = nomeInput.value.trim();
+            const instrumento = instrumentoSelect.value;
+
+            if (nome === '' || instrumento === '') {
+                alert('Por favor, preencha seu nome e selecione um instrumento antes de confirmar a presença.');
+                return;
+            }
+
+            const btn = document.getElementById('btn-presence');
+            btn.style.backgroundColor = '#2c3e50';
+            btn.innerText = 'Presença Confirmada ✔';
+            btn.disabled = true;
+
+            nomeInput.disabled = true;
+            instrumentoSelect.disabled = true;
+
+            alert('Presença confirmada: ' + nome + ' estará presente utilizando o instrumento ' + instrumento + '.');
+        }
+
+        function selectInstrument(element) {
+            const cards = document.querySelectorAll('.instrument-card');
+            cards.forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            element.classList.add('selected');
+        }
+    </script>
+</body>
+</html>
