@@ -6,314 +6,493 @@
     <title>Logística Bateria Desgovernada</title>
     <style>
         :root {
-            --bg-color: #f4f6f9;
-            --text-color: #333;
+            --bg-body: #f0f2f5;
+            --bg-card: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
             --primary: #2c3e50;
-            --accent: #e74c3c;
+            --accent: #3498db;
             --success: #27ae60;
-            --border: #dcdde1;
-            --card-bg: #ffffff;
+            --danger: #e74c3c;
+            --border: #e0e0e0;
         }
 
         body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
             margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .app-container {
-            width: 100%;
-            max-width: 600px;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        .nav-header {
-            display: flex;
-            background-color: var(--primary);
             padding: 0;
-            margin: 0;
         }
 
-        .nav-btn {
-            flex: 1;
-            background: none;
-            border: none;
-            color: #bdc3c7;
-            padding: 15px;
-            font-size: 14px;
+        /* Header / Navbar */
+        header {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s;
+            color: var(--primary);
         }
 
-        .nav-btn.active {
-            color: #fff;
-            background-color: rgba(255,255,255,0.1);
-            border-bottom: 3px solid var(--accent);
+        .logo-box {
+            width: 30px;
+            height: 30px;
+            background-color: #ccc;
+            border-radius: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .profile-icon {
+            background-color: #ddd;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Layout Principal */
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 20px;
         }
 
         .view-section {
             display: none;
-            padding: 20px;
         }
 
         .view-section.active {
             display: block;
         }
 
-        /* Tela Inicial e Formulário de Notificação */
-        .alert-box {
-            background-color: #fff3cd;
-            border-left: 5px solid #ffc107;
-            padding: 15px;
-            margin-bottom: 25px;
-            border-radius: 4px;
+        /* Dashboard */
+        .highlight-card {
+            background-color: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
-        .alert-title {
+        .calendar-icon {
+            font-size: 50px;
+        }
+
+        .highlight-info h2 {
             margin: 0 0 10px 0;
             font-size: 18px;
-            color: #856404;
         }
 
-        .alert-detail {
-            margin: 0 0 15px 0;
+        .btn-primary {
+            background-color: #888; /* Neutro conforme wireframe */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #666;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .panel-title {
+            margin-top: 0;
             font-size: 14px;
-            color: #533f03;
-        }
-
-        .form-group {
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
             margin-bottom: 15px;
         }
 
-        .form-label {
-            display: block;
-            font-size: 14px;
+        /* Calendário Mock */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            text-align: center;
+        }
+
+        .calendar-day-header {
+            font-size: 12px;
             font-weight: bold;
-            margin-bottom: 5px;
-            color: #533f03;
+            color: var(--text-muted);
         }
 
-        .form-control {
-            width: 100%;
+        .calendar-day {
+            border: 1px solid var(--border);
             padding: 10px;
-            border: 1px solid #ffeeba;
-            border-radius: 4px;
             font-size: 14px;
-            box-sizing: border-box;
-            font-family: inherit;
-            background-color: #fff;
+            cursor: pointer;
+            transition: background 0.2s;
         }
 
-        .form-control:focus {
-            outline: none;
-            border-color: #ffc107;
+        .calendar-day:hover, .calendar-day.active {
+            background-color: #e0e0e0;
+            font-weight: bold;
         }
 
-        .btn-confirm {
-            background-color: var(--success);
+        /* Confirmações */
+        .confirmation-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        /* Tabela de Instrumentos */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .data-table th, .data-table td {
+            border: 1px solid var(--border);
+            padding: 10px;
+            text-align: center;
+        }
+
+        .data-table th {
+            background-color: #f9f9f9;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        /* Grid de Seleção de Equipamentos */
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .equipment-card {
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+
+        .equipment-card:hover {
+            border-color: var(--primary);
+        }
+
+        .equipment-icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .btn-select {
+            background-color: #666;
             color: white;
             border: none;
-            padding: 12px 20px;
+            padding: 5px 15px;
             border-radius: 4px;
-            font-size: 16px;
-            font-weight: bold;
+            font-size: 12px;
+            margin-top: 10px;
             cursor: pointer;
             width: 100%;
-            transition: opacity 0.2s;
-            margin-top: 10px;
         }
 
-        .btn-confirm:hover {
-            opacity: 0.9;
-        }
-        
-        .btn-confirm:disabled {
-            cursor: not-allowed;
-            opacity: 1;
-        }
-
-        /* Cronograma de Ensaios */
-        .schedule-row {
-            display: flex;
-            justify-content: space-between;
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
             align-items: center;
-            padding: 15px;
-            border: 1px solid var(--border);
-            margin-bottom: 10px;
-            border-radius: 4px;
+            z-index: 1000;
         }
 
-        .schedule-date {
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .schedule-info {
-            font-size: 14px;
-            color: #666;
-            text-align: right;
-        }
-
-        /* Alocação de Instrumentos */
-        .instrument-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .instrument-card {
+        .modal-content {
+            background-color: var(--bg-card);
             border: 2px solid var(--border);
-            padding: 20px 10px;
+            border-radius: 8px;
+            padding: 25px;
+            width: 90%;
+            max-width: 450px;
             text-align: center;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
         }
 
-        .instrument-card.selected {
-            border-color: var(--primary);
-            background-color: #f0f4f8;
-            font-weight: bold;
-        }
-
-        .section-title {
+        .modal-title {
             margin-top: 0;
-            font-size: 20px;
+            font-size: 16px;
             border-bottom: 1px solid var(--border);
             padding-bottom: 10px;
-            margin-bottom: 20px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .btn-yes {
+            flex: 1;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-no {
+            flex: 1;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .btn-yes:hover { background-color: #e0e0e0; border-color: var(--success); }
+        .btn-no:hover { background-color: #e0e0e0; border-color: var(--danger); }
+
+        .checkbox-container {
+            margin-top: 15px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <nav class="nav-header">
-            <button class="nav-btn active" onclick="switchView('home', this)">Início</button>
-            <button class="nav-btn" onclick="switchView('schedule', this)">Cronograma</button>
-            <button class="nav-btn" onclick="switchView('instruments', this)">Instrumentos</button>
+    <header>
+        <div class="logo-area">
+            <div class="logo-box"></div>
+            <span>Bateria Desgovernada</span>
+        </div>
+        <nav class="nav-links">
+            <a onclick="navigate('dashboard')">Início</a>
+            <a onclick="navigate('dashboard')">Eventos</a>
+            <a onclick="navigate('instrumentos')">Instrumentos</a>
+            <a href="#">Perfil</a>
         </nav>
+        <div class="profile-icon">VT</div>
+    </header>
 
-        <div id="home" class="view-section active">
-            <h2 class="section-title">Próximo Evento</h2>
-            <div class="alert-box">
-                <h3 class="alert-title">⚠️ Ensaio Geral - Loucomotiva</h3>
-                <p class="alert-detail">Data: Sexta-feira, 20h00<br>Local: Sede principal</p>
+    <div class="container">
+        
+        <main id="dashboard" class="view-section active">
+            <div class="highlight-card">
+                <div class="calendar-icon">📅</div>
+                <div class="highlight-info">
+                    <p style="margin: 0; font-size: 12px; font-weight: bold;">🔔 PRÓXIMO EVENTO DESTACADO</p>
+                    <h2>*ENSAIO GERAL ESPECIAL - SEXTA, 21:00h - QUADRA DA ESCOLA</h2>
+                    <button class="btn-primary" onclick="openModal()">CONFIRMAR PRESENÇA RÁPIDA</button>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="panel">
+                    <h3 class="panel-title">Meu Cronograma</h3>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; font-weight: bold;">
+                        <span>Novembro de 2025</span>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="calendar-day-header">Dom</div>
+                        <div class="calendar-day-header">Seg</div>
+                        <div class="calendar-day-header">Ter</div>
+                        <div class="calendar-day-header">Qua</div>
+                        <div class="calendar-day-header">Qui</div>
+                        <div class="calendar-day-header">Sex</div>
+                        <div class="calendar-day-header">Sáb</div>
+                        
+                        <div class="calendar-day">1</div><div class="calendar-day">2</div><div class="calendar-day">3</div><div class="calendar-day">4</div><div class="calendar-day">5</div><div class="calendar-day">6</div><div class="calendar-day">7</div>
+                        <div class="calendar-day">8</div><div class="calendar-day">9</div><div class="calendar-day active" onclick="navigate('instrumentos')">10</div><div class="calendar-day">11</div><div class="calendar-day">12</div><div class="calendar-day">13</div><div class="calendar-day">14</div>
+                    </div>
+                    <p style="font-size: 12px; color: #666; margin-top: 10px; text-align: center;">*Clique na data do evento para acessar alocação.</p>
+                </div>
+
+                <div class="panel">
+                    <h3 class="panel-title">Minhas Confirmações</h3>
+                    <div class="confirmation-item">Ensaio 1 <strong>(SIM)</strong></div>
+                    <div class="confirmation-item">Ensaio 2 <strong>(SEM RESPOSTA)</strong></div>
+                </div>
+            </div>
+        </main>
+
+        <main id="instrumentos" class="view-section">
+            <div class="panel">
+                <h2 style="margin-top: 0; font-size: 18px; text-align: center;">ALOCAÇÃO DE INSTRUMENTOS & DISTRIBUIÇÃO PATRIMÔNIO</h2>
+                <p style="font-size: 14px; text-align: center; color: var(--text-muted);">Visualizar a distribuição para o próximo evento</p>
                 
-                <div class="form-group">
-                    <label class="form-label" for="ritmista-nome">Nome do Ritmista:</label>
-                    <input type="text" id="ritmista-nome" class="form-control" placeholder="Digite seu nome completo">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Naipe</th>
+                            <th>Instrumento</th>
+                            <th>Total Necessário</th>
+                            <th>Ritmistas Alocados</th>
+                            <th>Disponível</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Repique de Anel (15/12)</td>
+                            <td>Repique</td>
+                            <td>15/12</td>
+                            <td>[Nome Ritmista]<br>[Nome Ritmista]</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Surdo de 1ª</td>
+                            <td>Surdo</td>
+                            <td>10/8</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Caixa</td>
+                            <td>Caixa</td>
+                            <td>20/16</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="border: 1px solid var(--border); padding: 15px; border-radius: 8px;">
+                    <h3 style="margin-top: 0; font-size: 16px; text-align: center;">SOLICITAR INSTRUMENTO<br><span style="font-size: 12px; font-weight: normal;">(Fluxo Exclusivo de Logística - Sem Social/Chat)</span></h3>
+                    
+                    <div class="equipment-grid">
+                        <div class="equipment-card">
+                            <div class="equipment-icon">🥁</div>
+                            <div style="font-weight: bold; font-size: 14px;">Surdo</div>
+                            <button class="btn-select" onclick="solicitarInstrumento('Surdo')">SELECT</button>
+                        </div>
+                        <div class="equipment-card">
+                            <div class="equipment-icon">🪘</div>
+                            <div style="font-weight: bold; font-size: 14px;">Repique</div>
+                            <button class="btn-select" onclick="solicitarInstrumento('Repique')">SELECT</button>
+                        </div>
+                        <div class="equipment-card">
+                            <div class="equipment-icon">🥁</div>
+                            <div style="font-weight: bold; font-size: 14px;">Caixa</div>
+                            <button class="btn-select" onclick="solicitarInstrumento('Caixa')">SELECT</button>
+                        </div>
+                        <div class="equipment-card">
+                            <div class="equipment-icon">⭕</div>
+                            <div style="font-weight: bold; font-size: 14px;">Tamborim</div>
+                            <button class="btn-select" onclick="solicitarInstrumento('Tamborim')">SELECT</button>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="ritmista-instrumento">Instrumento a ser utilizado:</label>
-                    <select id="ritmista-instrumento" class="form-control">
-                        <option value="">Selecione uma opção...</option>
-                        <option value="Surdo de Primeira">Surdo de Primeira</option>
-                        <option value="Surdo de Segunda">Surdo de Segunda</option>
-                        <option value="Surdo de Terceira">Surdo de Terceira</option>
-                        <option value="Caixa">Caixa</option>
-                        <option value="Repique">Repique</option>
-                        <option value="Tamborim">Tamborim</option>
-                        <option value="Chocalho">Chocalho</option>
-                        <option value="Agogô">Agogô</option>
-                    </select>
-                </div>
-
-                <button id="btn-presence" class="btn-confirm" onclick="confirmPresence()">Confirmar Comparecimento</button>
             </div>
-            <p style="font-size: 14px; color: #666;">Utilize as abas superiores para verificar o cronograma completo e solicitar a alocação do seu patrimônio.</p>
-        </div>
+        </main>
 
-        <div id="schedule" class="view-section">
-            <h2 class="section-title">Painel de Ensaios</h2>
-            <div class="schedule-row">
-                <div class="schedule-date">Sexta, 15/11 - 20h</div>
-                <div class="schedule-info">Ensaio Geral<br>Sede</div>
-            </div>
-            <div class="schedule-row">
-                <div class="schedule-date">Sábado, 16/11 - 14h</div>
-                <div class="schedule-info">Naipe de Caixas<br>Anexo</div>
-            </div>
-            <div class="schedule-row">
-                <div class="schedule-date">Quarta, 20/11 - 19h</div>
-                <div class="schedule-info">Ensaio de Marcação<br>Sede</div>
-            </div>
-        </div>
+    </div>
 
-        <div id="instruments" class="view-section">
-            <h2 class="section-title">Módulo de Patrimônio</h2>
-            <p style="font-size: 14px; margin-bottom: 20px;">Selecione o instrumento necessário para a próxima atividade logística:</p>
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <h3 class="modal-title">CONFIRMAÇÃO RÁPIDA DE PRESENÇA</h3>
+            <p style="font-weight: bold; margin-top: 20px;">Olá, Vitor! Você participará?</p>
+            <p>*ENSAIO GERAL ESPECIAL (Sexta-feira)</p>
             
-            <div class="instrument-grid">
-                <div class="instrument-card" onclick="selectInstrument(this)">Surdo de Primeira</div>
-                <div class="instrument-card" onclick="selectInstrument(this)">Surdo de Segunda</div>
-                <div class="instrument-card" onclick="selectInstrument(this)">Surdo de Terceira</div>
-                <div class="instrument-card" onclick="selectInstrument(this)">Caixa</div>
-                <div class="instrument-card" onclick="selectInstrument(this)">Repique</div>
-                <div class="instrument-card" onclick="selectInstrument(this)">Tamborim</div>
-                <div class="instrument-card" onclick="selectInstrument(this)">Chocalho</div>
-                <div class="instrument-card" onclick="selectInstrument(this)">Agogô</div>
+            <div class="modal-actions">
+                <button class="btn-yes" onclick="confirmarPresenca(true)">✔️ SIM, CONFIRMADO</button>
+                <button class="btn-no" onclick="confirmarPresenca(false)">❌ NÃO, AUSENTE</button>
+            </div>
+
+            <p style="font-size: 12px; color: var(--text-muted);">Sua resposta ajuda na logística de instrumentos e ensaios.</p>
+            
+            <div class="checkbox-container">
+                <input type="checkbox" id="check-instrumento">
+                <label for="check-instrumento">Vou precisar de Instrumento</label>
             </div>
         </div>
     </div>
 
     <script>
-        function switchView(viewId, btnElement) {
-            const views = document.querySelectorAll('.view-section');
-            views.forEach(view => {
-                view.classList.remove('active');
+        function navigate(viewId) {
+            document.querySelectorAll('.view-section').forEach(section => {
+                section.classList.remove('active');
             });
-
-            const btns = document.querySelectorAll('.nav-btn');
-            btns.forEach(btn => {
-                btn.classList.remove('active');
-            });
-
             document.getElementById(viewId).classList.add('active');
-            btnElement.classList.add('active');
         }
 
-        function confirmPresence() {
-            const nomeInput = document.getElementById('ritmista-nome');
-            const instrumentoSelect = document.getElementById('ritmista-instrumento');
+        function openModal() {
+            document.getElementById('modal-overlay').style.display = 'flex';
+        }
+
+        function fecharModal() {
+            document.getElementById('modal-overlay').style.display = 'none';
+        }
+
+        function confirmarPresenca(vaiParticipar) {
+            const precisaInstrumento = document.getElementById('check-instrumento').checked;
             
-            const nome = nomeInput.value.trim();
-            const instrumento = instrumentoSelect.value;
+            fecharModal();
 
-            if (nome === '' || instrumento === '') {
-                alert('Por favor, preencha seu nome e selecione um instrumento antes de confirmar a presença.');
-                return;
+            if (vaiParticipar) {
+                if (precisaInstrumento) {
+                    navigate('instrumentos');
+                } else {
+                    alert('Presença confirmada com sucesso! Como você possui instrumento próprio, nenhuma alocação extra é necessária.');
+                }
+            } else {
+                alert('Sua ausência foi registrada. Obrigado por informar a logística antecipadamente.');
             }
-
-            const btn = document.getElementById('btn-presence');
-            btn.style.backgroundColor = '#2c3e50';
-            btn.innerText = 'Presença Confirmada ✔';
-            btn.disabled = true;
-
-            nomeInput.disabled = true;
-            instrumentoSelect.disabled = true;
-
-            alert('Presença confirmada: ' + nome + ' estará presente utilizando o instrumento ' + instrumento + '.');
         }
 
-        function selectInstrument(element) {
-            const cards = document.querySelectorAll('.instrument-card');
-            cards.forEach(card => {
-                card.classList.remove('selected');
-            });
-
-            element.classList.add('selected');
+        function solicitarInstrumento(nome) {
+            alert('A solicitação do instrumento ' + nome + ' foi registrada na logística do evento.');
         }
     </script>
 </body>
