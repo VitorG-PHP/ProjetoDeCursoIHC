@@ -25,7 +25,6 @@
             padding: 0;
         }
 
-        /* Header / Navbar */
         header {
             background-color: var(--bg-card);
             border-bottom: 1px solid var(--border);
@@ -46,28 +45,28 @@
         .logo-box {
             width: 30px;
             height: 30px;
-            background-color: #ccc;
+            background-color: #333;
             border-radius: 4px;
         }
 
-        .nav-links {
+        .nav-actions {
             display: flex;
-            gap: 20px;
+            align-items: center;
+            gap: 15px;
         }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-main);
-            font-weight: 500;
+        .role-selector {
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            font-weight: bold;
+            background-color: #f9f9f9;
             cursor: pointer;
         }
 
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
         .profile-icon {
-            background-color: #ddd;
+            background-color: var(--primary);
+            color: white;
             border-radius: 50%;
             width: 35px;
             height: 35px;
@@ -78,60 +77,29 @@
             font-size: 14px;
         }
 
-        /* Layout Principal */
         .container {
             max-width: 1000px;
             margin: 20px auto;
             padding: 0 20px;
         }
 
-        .view-section {
-            display: none;
-        }
-
-        .view-section.active {
-            display: block;
-        }
-
-        /* Dashboard */
-        .highlight-card {
-            background-color: var(--bg-card);
-            border: 2px solid var(--border);
+        .evento-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 20px;
             border-radius: 8px;
-            padding: 20px;
             margin-bottom: 20px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 20px;
         }
-
-        .calendar-icon {
-            font-size: 50px;
-        }
-
-        .highlight-info h2 {
-            margin: 0 0 10px 0;
-            font-size: 18px;
-        }
-
-        .btn-primary {
-            background-color: #888; /* Neutro conforme wireframe */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            background-color: #666;
-        }
+        .evento-header h2 { margin: 0; font-size: 18px; }
 
         .dashboard-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 20px;
+            margin-bottom: 20px;
         }
 
         .panel {
@@ -148,9 +116,26 @@
             border-bottom: 1px solid var(--border);
             padding-bottom: 10px;
             margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        /* Calendário Mock */
+        .btn {
+            padding: 8px 15px;
+            border-radius: 4px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 12px;
+            transition: opacity 0.2s;
+        }
+        .btn:hover { opacity: 0.8; }
+        .btn-primary { background-color: var(--primary); color: white; }
+        .btn-success { background-color: var(--success); color: white; }
+        .btn-danger { background-color: var(--danger); color: white; }
+        .btn-outline { background-color: transparent; border: 1px solid var(--border); }
+
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -168,332 +153,469 @@
             border: 1px solid var(--border);
             padding: 10px;
             font-size: 14px;
-            cursor: pointer;
-            transition: background 0.2s;
+            border-radius: 4px;
+            position: relative;
+            transition: 0.2s;
         }
 
-        .calendar-day:hover, .calendar-day.active {
-            background-color: #e0e0e0;
+        .calendar-day.empty { border: none; background: transparent; }
+
+        .calendar-day.has-event {
+            background-color: #e8f4f8;
             font-weight: bold;
-        }
-
-        /* Confirmações */
-        .confirmation-item {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-            font-size: 14px;
-        }
-
-        /* Tabela de Instrumentos */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
-        .data-table th, .data-table td {
-            border: 1px solid var(--border);
-            padding: 10px;
-            text-align: center;
-        }
-
-        .data-table th {
-            background-color: #f9f9f9;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 12px;
-        }
-
-        /* Grid de Seleção de Equipamentos */
-        .equipment-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-        }
-
-        .equipment-card {
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 15px;
-            text-align: center;
-            background-color: #f9f9f9;
+            color: var(--accent);
             cursor: pointer;
+            border-color: var(--accent);
+            border-width: 2px;
         }
-
-        .equipment-card:hover {
+        .calendar-day.has-event:hover { background-color: #d1ecf4; }
+        
+        .calendar-day.selected-event {
+            background-color: var(--primary) !important;
+            color: white !important;
             border-color: var(--primary);
         }
 
-        .equipment-icon {
-            font-size: 30px;
-            margin-bottom: 10px;
-        }
-
-        .btn-select {
-            background-color: #666;
-            color: white;
-            border: none;
-            padding: 5px 15px;
-            border-radius: 4px;
-            font-size: 12px;
-            margin-top: 10px;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background-color: var(--bg-card);
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            padding: 25px;
-            width: 90%;
-            max-width: 450px;
-            text-align: center;
-        }
-
-        .modal-title {
-            margin-top: 0;
-            font-size: 16px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
-        }
-
-        .modal-actions {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin: 20px 0;
-        }
-
-        .btn-yes {
-            flex: 1;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            padding: 12px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .btn-no {
-            flex: 1;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            padding: 12px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        
-        .btn-yes:hover { background-color: #e0e0e0; border-color: var(--success); }
-        .btn-no:hover { background-color: #e0e0e0; border-color: var(--danger); }
-
-        .checkbox-container {
-            margin-top: 15px;
+        .list-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
             font-size: 14px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
         }
+        .list-item:last-child { border-bottom: none; }
+        
+        .badge {
+            font-size: 11px;
+            padding: 3px 6px;
+            border-radius: 10px;
+            background-color: #eee;
+            white-space: nowrap;
+        }
+        .badge.green { background-color: #d5f5e3; color: #1e8449; }
+        .badge.red { background-color: #fadbd8; color: #c0392b; }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none; justify-content: center; align-items: center; z-index: 1000;
+        }
+        .modal-content {
+            background-color: var(--bg-card); padding: 25px; border-radius: 8px; width: 90%; max-width: 400px;
+        }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 12px; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group select { width: 100%; padding: 8px; border: 1px solid var(--border); border-radius: 4px; box-sizing: border-box; }
+
+        .admin-only { display: none; }
+        .user-only { display: none; }
+        
+        body[data-role="admin"] .admin-only { display: block; }
+        body[data-role="user"] .user-only { display: block; }
     </style>
 </head>
-<body>
+<body data-role="admin">
 
     <header>
         <div class="logo-area">
             <div class="logo-box"></div>
             <span>Bateria Desgovernada</span>
         </div>
-        <nav class="nav-links">
-            <a onclick="navigate('dashboard')">Início</a>
-            <a onclick="navigate('dashboard')">Eventos</a>
-            <a onclick="navigate('instrumentos')">Instrumentos</a>
-            <a href="#">Perfil</a>
-        </nav>
-        <div class="profile-icon">VT</div>
+        <div class="nav-actions">
+            <select class="role-selector" id="role-selector" onchange="trocarPerfil()">
+                <option value="admin">Logar como: Vitor (Diretor)</option>
+                <option value="user">Logar como: Gabriel (Ritmista)</option>
+            </select>
+            <div class="profile-icon" id="profile-icon">VT</div>
+        </div>
     </header>
 
     <div class="container">
         
-        <main id="dashboard" class="view-section active">
-            <div class="highlight-card">
-                <div class="calendar-icon">📅</div>
-                <div class="highlight-info">
-                    <p style="margin: 0; font-size: 12px; font-weight: bold;">🔔 PRÓXIMO EVENTO DESTACADO</p>
-                    <h2>*ENSAIO GERAL ESPECIAL - SEXTA, 21:00h - QUADRA DA ESCOLA</h2>
-                    <button class="btn-primary" onclick="openModal()">CONFIRMAR PRESENÇA RÁPIDA</button>
-                </div>
-            </div>
+        <div class="evento-header" id="header-evento-ativo" style="display: none;">
+            <h2 id="titulo-evento-ativo">Selecione um evento</h2>
+            <span id="data-evento-ativo" style="font-size: 14px; opacity: 0.9;"></span>
+        </div>
 
-            <div class="dashboard-grid">
-                <div class="panel">
-                    <h3 class="panel-title">Meu Cronograma</h3>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; font-weight: bold;">
-                        <span>Novembro de 2025</span>
-                    </div>
-                    <div class="calendar-grid">
-                        <div class="calendar-day-header">Dom</div>
-                        <div class="calendar-day-header">Seg</div>
-                        <div class="calendar-day-header">Ter</div>
-                        <div class="calendar-day-header">Qua</div>
-                        <div class="calendar-day-header">Qui</div>
-                        <div class="calendar-day-header">Sex</div>
-                        <div class="calendar-day-header">Sáb</div>
-                        
-                        <div class="calendar-day">1</div><div class="calendar-day">2</div><div class="calendar-day">3</div><div class="calendar-day">4</div><div class="calendar-day">5</div><div class="calendar-day">6</div><div class="calendar-day">7</div>
-                        <div class="calendar-day">8</div><div class="calendar-day">9</div><div class="calendar-day active" onclick="navigate('instrumentos')">10</div><div class="calendar-day">11</div><div class="calendar-day">12</div><div class="calendar-day">13</div><div class="calendar-day">14</div>
-                    </div>
-                    <p style="font-size: 12px; color: #666; margin-top: 10px; text-align: center;">*Clique na data do evento para acessar alocação.</p>
-                </div>
-
-                <div class="panel">
-                    <h3 class="panel-title">Minhas Confirmações</h3>
-                    <div class="confirmation-item">Ensaio 1 <strong>(SIM)</strong></div>
-                    <div class="confirmation-item">Ensaio 2 <strong>(SEM RESPOSTA)</strong></div>
-                </div>
-            </div>
-        </main>
-
-        <main id="instrumentos" class="view-section">
+        <div class="dashboard-grid">
+            
+            <!-- Calendário Interativo -->
             <div class="panel">
-                <h2 style="margin-top: 0; font-size: 18px; text-align: center;">ALOCAÇÃO DE INSTRUMENTOS & DISTRIBUIÇÃO PATRIMÔNIO</h2>
-                <p style="font-size: 14px; text-align: center; color: var(--text-muted);">Visualizar a distribuição para o próximo evento</p>
-                
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Naipe</th>
-                            <th>Instrumento</th>
-                            <th>Total Necessário</th>
-                            <th>Ritmistas Alocados</th>
-                            <th>Disponível</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Repique de Anel (15/12)</td>
-                            <td>Repique</td>
-                            <td>15/12</td>
-                            <td>[Nome Ritmista]<br>[Nome Ritmista]</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Surdo de 1ª</td>
-                            <td>Surdo</td>
-                            <td>10/8</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>Caixa</td>
-                            <td>Caixa</td>
-                            <td>20/16</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="panel-title">
+                    <span>Cronograma</span>
+                    <button class="btn btn-primary admin-only" onclick="abrirModalEvento()">+ Novo Evento</button>
+                </div>
+                <div style="text-align: center; font-weight: bold; margin-bottom: 15px;" id="mes-calendario"></div>
+                <div class="calendar-grid" id="calendar-grid">
+                    <!-- Gerado via JS -->
+                </div>
+                <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 15px;">* Clique nos dias azuis para navegar entre os eventos</p>
+            </div>
 
-                <div style="border: 1px solid var(--border); padding: 15px; border-radius: 8px;">
-                    <h3 style="margin-top: 0; font-size: 16px; text-align: center;">SOLICITAR INSTRUMENTO<br><span style="font-size: 12px; font-weight: normal;">(Fluxo Exclusivo de Logística - Sem Social/Chat)</span></h3>
+            <!-- Contexto do Evento Selecionado (Painéis Dinâmicos) -->
+            <div id="painel-contexto" style="display: none;">
+                
+                <div class="panel user-only">
+                    <h3 class="panel-title">Meu Status neste Evento</h3>
                     
-                    <div class="equipment-grid">
-                        <div class="equipment-card">
-                            <div class="equipment-icon">🥁</div>
-                            <div style="font-weight: bold; font-size: 14px;">Surdo</div>
-                            <button class="btn-select" onclick="solicitarInstrumento('Surdo')">SELECT</button>
+                    <div style="margin-bottom: 20px;">
+                        <p style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Sua Presença:</p>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-success" style="flex:1" onclick="atualizarPresencaUsuario(true)">CONFIRMAR</button>
+                            <button class="btn btn-danger" style="flex:1" onclick="atualizarPresencaUsuario(false)">AUSENTE</button>
                         </div>
-                        <div class="equipment-card">
-                            <div class="equipment-icon">🪘</div>
-                            <div style="font-weight: bold; font-size: 14px;">Repique</div>
-                            <button class="btn-select" onclick="solicitarInstrumento('Repique')">SELECT</button>
+                        <p id="status-presenca-user" style="font-size: 12px; margin-top: 5px; color: var(--text-muted);"></p>
+                    </div>
+
+                    <hr style="border: none; border-top: 1px solid var(--border); margin: 15px 0;">
+
+                    <div>
+                        <p style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Seu Instrumento:</p>
+                        <select id="select-instrumento-user" class="form-group" style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                            <option value="" disabled selected>Selecione seu naipe...</option>
+                            <option value="Surdo de Primeira">Surdo de Primeira</option>
+                            <option value="Surdo de Segunda">Surdo de Segunda</option>
+                            <option value="Surdo de Terceira">Surdo de Terceira</option>
+                            <option value="Caixa">Caixa</option>
+                            <option value="Repique">Repique</option>
+                            <option value="Tamborim">Tamborim</option>
+                            <option value="Chocalho">Chocalho</option>
+                            <option value="Agogô">Agogô</option>
+                        </select>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-primary" style="flex:1" onclick="atualizarInstrumentoUsuario('tem')">Tenho o meu</button>
+                            <button class="btn btn-outline" style="flex:1" onclick="atualizarInstrumentoUsuario('precisa')">Preciso pegar</button>
                         </div>
-                        <div class="equipment-card">
-                            <div class="equipment-icon">🥁</div>
-                            <div style="font-weight: bold; font-size: 14px;">Caixa</div>
-                            <button class="btn-select" onclick="solicitarInstrumento('Caixa')">SELECT</button>
+                        <p id="status-instrumento-user" style="font-size: 12px; margin-top: 5px; color: var(--text-muted);"></p>
+                    </div>
+                </div>
+
+                <div class="panel admin-only">
+                    <h3 class="panel-title">Resumo Logístico do Evento</h3>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <p id="contador-presencas" style="font-size: 13px; font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 5px;">Presenças Confirmadas (0)</p>
+                        <div id="lista-presencas" style="max-height: 150px; overflow-y: auto;">
+                            <!-- Gerado via JS -->
                         </div>
-                        <div class="equipment-card">
-                            <div class="equipment-icon">⭕</div>
-                            <div style="font-weight: bold; font-size: 14px;">Tamborim</div>
-                            <button class="btn-select" onclick="solicitarInstrumento('Tamborim')">SELECT</button>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <p style="font-size: 13px; font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 5px;">Distribuição de Instrumentos</p>
+                        <div id="lista-instrumentos" style="max-height: 200px; overflow-y: auto;">
+                            <!-- Gerado via JS -->
+                        </div>
+                    </div>
+
+                    <div>
+                        <p style="font-size: 13px; font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 10px;">Estoque Reservado para o Evento (Disponível / Total)</p>
+                        <div id="lista-estoque" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0 15px;">
+                            <!-- Gerado via JS -->
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+            
+            <!-- Mensagem de Idle (Nenhum evento selecionado) -->
+            <div id="mensagem-idle" class="panel" style="display: flex; align-items: center; justify-content: center; text-align: center; color: var(--text-muted);">
+                <h3>👈 Selecione um evento no calendário para visualizar os dados logísticos.</h3>
+            </div>
 
+        </div>
     </div>
 
-    <div id="modal-overlay" class="modal-overlay">
+    <!-- MODAL: Criar Evento -->
+    <div id="modal-evento" class="modal-overlay">
         <div class="modal-content">
-            <h3 class="modal-title">CONFIRMAÇÃO RÁPIDA DE PRESENÇA</h3>
-            <p style="font-weight: bold; margin-top: 20px;">Olá, Vitor! Você participará?</p>
-            <p>*ENSAIO GERAL ESPECIAL (Sexta-feira)</p>
+            <h3 style="margin-top: 0; border-bottom: 1px solid var(--border); padding-bottom: 10px;">Novo Evento</h3>
             
-            <div class="modal-actions">
-                <button class="btn-yes" onclick="confirmarPresenca(true)">✔️ SIM, CONFIRMADO</button>
-                <button class="btn-no" onclick="confirmarPresenca(false)">❌ NÃO, AUSENTE</button>
+            <div class="form-group">
+                <label>Título do Evento</label>
+                <input type="text" id="novo-titulo" placeholder="Ex: Ensaio de Bateria">
+            </div>
+            
+            <div class="form-group">
+                <label>Dia (Mês Atual)</label>
+                <input type="number" id="novo-dia" min="1" max="31">
             </div>
 
-            <p style="font-size: 12px; color: var(--text-muted);">Sua resposta ajuda na logística de instrumentos e ensaios.</p>
-            
-            <div class="checkbox-container">
-                <input type="checkbox" id="check-instrumento">
-                <label for="check-instrumento">Vou precisar de Instrumento</label>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-primary" style="flex: 1;" onclick="salvarEvento()">Criar Evento</button>
+                <button class="btn btn-outline" style="flex: 1;" onclick="fecharModal('modal-evento')">Cancelar</button>
             </div>
         </div>
     </div>
 
     <script>
-        function navigate(viewId) {
-            document.querySelectorAll('.view-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(viewId).classList.add('active');
+        const dataAtual = new Date();
+        const anoAtual = dataAtual.getFullYear();
+        const mesAtual = dataAtual.getMonth();
+        
+        let eventoSelecionadoId = 1; // Inicia com o Ensaio selecionado
+
+        // Gerador base para que novos eventos tenham a mesma lista de usuários vazia
+        const nomesBase = ["Gabriel", "Virlaine", "Whodson", "Fernando", "Ayron", "Lucas", "Amanda", "Pedro", "João", "Mariana", "Rafael", "Beatriz", "Carlos", "Juliana", "Marcos"];
+        
+        function gerarListaRitmistasNova() {
+            return nomesBase.map((nome, index) => ({
+                id: index + 1,
+                nome: nome,
+                presenca: null,
+                statusInstrumento: "pendente",
+                instrumento: null
+            }));
         }
 
-        function openModal() {
-            document.getElementById('modal-overlay').style.display = 'flex';
+        // Criando a base de dados com as especificações solicitadas para o Evento 1
+        const ritmistasEvento1 = gerarListaRitmistasNova();
+        ritmistasEvento1[0] = { id: 1, nome: "Gabriel", presenca: true, statusInstrumento: "precisa", instrumento: "Repique" };
+        ritmistasEvento1[1] = { id: 2, nome: "Virlaine", presenca: true, statusInstrumento: "tem", instrumento: "Surdo de Primeira" };
+        ritmistasEvento1[2] = { id: 3, nome: "Whodson", presenca: true, statusInstrumento: "tem", instrumento: "Surdo de Segunda" };
+        ritmistasEvento1[3] = { id: 4, nome: "Fernando", presenca: true, statusInstrumento: "tem", instrumento: "Surdo de Terceira" };
+        ritmistasEvento1[4] = { id: 5, nome: "Ayron", presenca: true, statusInstrumento: "tem", instrumento: "Caixa" };
+        ritmistasEvento1[5] = { id: 6, nome: "Lucas", presenca: true, statusInstrumento: "tem", instrumento: "Tamborim" };
+        ritmistasEvento1[6] = { id: 7, nome: "Amanda", presenca: true, statusInstrumento: "tem", instrumento: "Agogô" };
+        ritmistasEvento1[7] = { id: 8, nome: "Pedro", presenca: true, statusInstrumento: "tem", instrumento: "Chocalho" };
+        ritmistasEvento1[8] = { id: 9, nome: "João", presenca: true, statusInstrumento: "tem", instrumento: "Repique" };
+        ritmistasEvento1[9] = { id: 10, nome: "Mariana", presenca: true, statusInstrumento: "precisa", instrumento: "Caixa" };
+        ritmistasEvento1[10] = { id: 11, nome: "Rafael", presenca: true, statusInstrumento: "precisa", instrumento: "Tamborim" };
+        ritmistasEvento1[11] = { id: 12, nome: "Beatriz", presenca: true, statusInstrumento: "precisa", instrumento: "Surdo de Primeira" };
+        ritmistasEvento1[12] = { id: 13, nome: "Carlos", presenca: false, statusInstrumento: "pendente", instrumento: null };
+        // id 14 e 15 continuam nulos (pendentes) por padrão.
+
+        const db = {
+            estoqueTotal: {
+                "Surdo de Primeira": 2, "Surdo de Segunda": 2, "Surdo de Terceira": 2,
+                "Repique": 2, "Caixa": 7, "Chocalho": 3, "Agogô": 2, "Tamborim": 2
+            },
+            eventos: [
+                { id: 1, dia: 15, mes: mesAtual, ano: anoAtual, titulo: "Ensaio", ritmistas: ritmistasEvento1 },
+                { id: 2, dia: 28, mes: mesAtual, ano: anoAtual, titulo: "Competição Estadual", ritmistas: gerarListaRitmistasNova() } // Evento 2 começa vazio
+            ]
+        };
+
+        function trocarPerfil() {
+            const role = document.getElementById('role-selector').value;
+            document.body.setAttribute('data-role', role);
+            document.getElementById('profile-icon').textContent = role === 'admin' ? 'VT' : 'GB';
+            renderizarInterfaces();
         }
 
-        function fecharModal() {
-            document.getElementById('modal-overlay').style.display = 'none';
+        function selecionarEvento(id) {
+            eventoSelecionadoId = id;
+            renderizarInterfaces();
         }
 
-        function confirmarPresenca(vaiParticipar) {
-            const precisaInstrumento = document.getElementById('check-instrumento').checked;
+        function renderizarInterfaces() {
+            renderizarCalendario();
             
-            fecharModal();
+            const eventoAtual = db.eventos.find(e => e.id === eventoSelecionadoId);
 
-            if (vaiParticipar) {
-                if (precisaInstrumento) {
-                    navigate('instrumentos');
-                } else {
-                    alert('Presença confirmada com sucesso! Como você possui instrumento próprio, nenhuma alocação extra é necessária.');
-                }
+            if (eventoAtual) {
+                document.getElementById('mensagem-idle').style.display = 'none';
+                document.getElementById('painel-contexto').style.display = 'block';
+                document.getElementById('header-evento-ativo').style.display = 'flex';
+                
+                document.getElementById('titulo-evento-ativo').textContent = eventoAtual.titulo;
+                document.getElementById('data-evento-ativo').textContent = `Dia ${eventoAtual.dia} do ${mesAtual + 1}`;
+
+                renderizarPainelAdmin(eventoAtual);
+                renderizarPainelUsuario(eventoAtual);
             } else {
-                alert('Sua ausência foi registrada. Obrigado por informar a logística antecipadamente.');
+                document.getElementById('mensagem-idle').style.display = 'flex';
+                document.getElementById('painel-contexto').style.display = 'none';
+                document.getElementById('header-evento-ativo').style.display = 'none';
             }
         }
 
-        function solicitarInstrumento(nome) {
-            alert('A solicitação do instrumento ' + nome + ' foi registrada na logística do evento.');
+        function renderizarCalendario() {
+            const grid = document.getElementById('calendar-grid');
+            const tituloMes = document.getElementById('mes-calendario');
+            const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+            
+            tituloMes.textContent = `${meses[mesAtual]} de ${anoAtual}`;
+
+            const diasNoMes = new Date(anoAtual, mesAtual + 1, 0).getDate();
+            const primeiroDiaSemana = new Date(anoAtual, mesAtual, 1).getDay();
+
+            let diasHtml = `
+                <div class="calendar-day-header">Dom</div><div class="calendar-day-header">Seg</div>
+                <div class="calendar-day-header">Ter</div><div class="calendar-day-header">Qua</div>
+                <div class="calendar-day-header">Qui</div><div class="calendar-day-header">Sex</div>
+                <div class="calendar-day-header">Sáb</div>
+            `;
+
+            for (let i = 0; i < primeiroDiaSemana; i++) {
+                diasHtml += `<div class="calendar-day empty"></div>`;
+            }
+
+            for (let dia = 1; dia <= diasNoMes; dia++) {
+                const eventoDia = db.eventos.find(e => e.dia === dia && e.mes === mesAtual);
+                if (eventoDia) {
+                    const isSelected = eventoDia.id === eventoSelecionadoId ? 'selected-event' : '';
+                    diasHtml += `
+                        <div class="calendar-day has-event ${isSelected}" title="${eventoDia.titulo}" onclick="selecionarEvento(${eventoDia.id})">
+                            ${dia}<br><span style="font-size: 10px;">📍 ${eventoDia.titulo.substring(0, 10)}...</span>
+                        </div>`;
+                } else {
+                    diasHtml += `<div class="calendar-day">${dia}</div>`;
+                }
+            }
+            grid.innerHTML = diasHtml;
         }
+
+        function renderizarPainelAdmin(evento) {
+            const containerPresencas = document.getElementById('lista-presencas');
+            const confirmados = evento.ritmistas.filter(r => r.presenca === true);
+            
+            document.getElementById('contador-presencas').textContent = `Presenças Confirmadas (${confirmados.length})`;
+
+            let htmlPresencas = '';
+            evento.ritmistas.forEach(r => {
+                let badge = '';
+                if (r.presenca === true) badge = '<span class="badge green">Confirmado</span>';
+                else if (r.presenca === false) badge = '<span class="badge red">Ausente</span>';
+                else badge = '<span class="badge">Pendente</span>';
+                
+                htmlPresencas += `<div class="list-item"><span>${r.nome}</span> ${badge}</div>`;
+            });
+            containerPresencas.innerHTML = htmlPresencas;
+
+            const containerInstrumentos = document.getElementById('lista-instrumentos');
+            let htmlTem = '<h4 style="margin: 10px 0 5px 0; font-size: 12px; color: var(--success);">✅ Possuem Instrumento Próprio</h4>';
+            let htmlPrecisa = '<h4 style="margin: 15px 0 5px 0; font-size: 12px; color: var(--danger);">⚠️ Precisam de Instrumento da Bateria</h4>';
+            
+            confirmados.forEach(r => {
+                if(r.statusInstrumento === 'tem') {
+                    htmlTem += `<div class="list-item"><span>${r.nome}</span> <span class="badge green">${r.instrumento}</span></div>`;
+                } else if(r.statusInstrumento === 'precisa') {
+                    htmlPrecisa += `<div class="list-item"><span>${r.nome}</span> <span class="badge red">${r.instrumento}</span></div>`;
+                }
+            });
+
+            containerInstrumentos.innerHTML = htmlTem + htmlPrecisa;
+
+            const containerEstoque = document.getElementById('lista-estoque');
+            let htmlEstoque = '';
+            
+            const usoEstoque = {};
+            Object.keys(db.estoqueTotal).forEach(inst => usoEstoque[inst] = 0);
+
+            // Apenas diminui o estoque se a pessoa está CONFIRMADA, PRECISA da bateria e tem um NOME de instrumento salvo.
+            evento.ritmistas.forEach(r => {
+                if (r.presenca === true && r.statusInstrumento === 'precisa' && r.instrumento) {
+                    if (usoEstoque[r.instrumento] !== undefined) {
+                        usoEstoque[r.instrumento]++;
+                    }
+                }
+            });
+
+            Object.keys(db.estoqueTotal).forEach(inst => {
+                const total = db.estoqueTotal[inst];
+                const emUso = usoEstoque[inst];
+                const disponivel = total - emUso;
+
+                let colorClass = disponivel > 0 ? 'green' : 'red';
+                if (disponivel === 0) colorClass = 'red';
+
+                htmlEstoque += `
+                    <div class="list-item" style="border-bottom: none; padding: 4px 0;">
+                        <span>${inst}</span>
+                        <span class="badge ${colorClass}">${disponivel} / ${total}</span>
+                    </div>
+                `;
+            });
+
+            containerEstoque.innerHTML = htmlEstoque;
+        }
+
+        function renderizarPainelUsuario(evento) {
+            const gabriel = evento.ritmistas.find(r => r.id === 1);
+            
+            const txtPresenca = document.getElementById('status-presenca-user');
+            if(gabriel.presenca === true) txtPresenca.innerHTML = 'Status atual: <strong style="color: var(--success)">Confirmado para este evento</strong>';
+            else if(gabriel.presenca === false) txtPresenca.innerHTML = 'Status atual: <strong style="color: var(--danger)">Ausente neste evento</strong>';
+            else txtPresenca.innerHTML = 'Status atual: <strong style="color: var(--text-muted)">Pendente</strong>';
+
+            const selectInst = document.getElementById('select-instrumento-user');
+            if(gabriel.instrumento) {
+                selectInst.value = gabriel.instrumento;
+            } else {
+                selectInst.value = "";
+            }
+
+            const txtInst = document.getElementById('status-instrumento-user');
+            if(gabriel.statusInstrumento === 'tem') {
+                txtInst.innerHTML = `Status: Neste evento tocarei com meu próprio <strong>${gabriel.instrumento}</strong>.`;
+            } else if(gabriel.statusInstrumento === 'precisa') {
+                txtInst.innerHTML = `Status: Solicitei um <strong>${gabriel.instrumento}</strong> da bateria para este evento.`;
+            } else {
+                txtInst.innerHTML = `Status: Não informado.`;
+            }
+        }
+
+        function atualizarPresencaUsuario(status) {
+            if(!eventoSelecionadoId) return;
+            const evento = db.eventos.find(e => e.id === eventoSelecionadoId);
+            const gabriel = evento.ritmistas.find(r => r.id === 1);
+            gabriel.presenca = status;
+            renderizarInterfaces();
+        }
+
+        function atualizarInstrumentoUsuario(statusPosse) {
+            if(!eventoSelecionadoId) return;
+            const inst = document.getElementById('select-instrumento-user').value;
+            if(!inst) {
+                alert("Por favor, selecione seu naipe na lista primeiro.");
+                return;
+            }
+            
+            const evento = db.eventos.find(e => e.id === eventoSelecionadoId);
+            const gabriel = evento.ritmistas.find(r => r.id === 1);
+            
+            gabriel.instrumento = inst;
+            gabriel.statusInstrumento = statusPosse; 
+            
+            renderizarInterfaces();
+            alert(`Sua solicitação de ${inst} para o evento "${evento.titulo}" foi registrada!`);
+        }
+
+        function abrirModalEvento() {
+            document.getElementById('novo-titulo').value = '';
+            document.getElementById('novo-dia').value = '';
+            document.getElementById('modal-evento').style.display = 'flex';
+        }
+
+        function fecharModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        function salvarEvento() {
+            const titulo = document.getElementById('novo-titulo').value;
+            const dia = parseInt(document.getElementById('novo-dia').value);
+
+            if (!titulo || isNaN(dia) || dia < 1 || dia > 31) {
+                alert("Preencha o título e um dia válido.");
+                return;
+            }
+
+            const idNovo = Date.now();
+            db.eventos.push({ 
+                id: idNovo, 
+                dia: dia, 
+                mes: mesAtual, 
+                ano: anoAtual, 
+                titulo: titulo,
+                ritmistas: gerarListaRitmistasNova() // Cada evento novo ganha uma lista zerada
+            });
+            
+            fecharModal('modal-evento');
+            selecionarEvento(idNovo); // Já muda automaticamente para o novo evento criado
+        }
+
+        // Inicializa renderizando o primeiro evento (Ensaio)
+        window.onload = renderizarInterfaces;
     </script>
 </body>
 </html>
